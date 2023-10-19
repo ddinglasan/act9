@@ -1,0 +1,35 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: centos  upd and upg               
+    dnf:	
+      update_cache: yes
+      name: "*"
+      state: latest
+    when: ansible_distribution == "CentOS"
+
+  - name: install wget (CentOS)
+    package:
+      name: wget
+      state: latest
+    when: ansible_distribution == "CentOS"
+
+  - name: ubuntu upd and upg
+    apt: 
+      update_cache: yes
+      upgrade: yes
+    when: ansible_distribution == "Ubuntu"
+
+- hosts: Ubuntu
+  become: true
+  roles:
+    - Ubuntu
+
+- hosts: CentOS
+  become: true
+  roles:    
+    - CentOS
+ 
+

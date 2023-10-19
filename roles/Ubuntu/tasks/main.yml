@@ -1,0 +1,13 @@
+---
+- name: install prometheus on ubuntu
+  apt:
+    name: prometheus
+    state: present
+  become: yes
+
+- name: Nagios Start/Enable Check
+  service:
+    name: prometheus
+    state: restarted
+    enabled: true
+
